@@ -126,6 +126,35 @@ public class MultiThreadedSocketServer {
 							if (voc.containsKey(args[1])){
 								Set<String> defs = voc.get(args[1]);
 								defs.addAll(chunkDefs(args));
+								voc.put(args[1], defs);
+								out.println("<definition of word successfully added>/<значения слова успешно добавлены>");
+								out.flush();
+							} else {
+								Set<String> defs = new HashSet<>();
+								defs.addAll(chunkDefs(args));
+								voc.put(args[1], defs);
+								out.println("<definition of word successfully added>/<значения слова успешно добавлены>");
+								out.flush();
+							}
+						}
+						break;
+					case "get" :
+						synchronized (this) {
+							if (voc.containsKey(args[1])){
+								out.println(voc.get(args[1]));
+								out.flush();		
+							} else {
+								String t = "<there is no such word in dictionary>/<слово отсутвует в словаре>";
+								out.println(t);
+								out.flush();		
+							}
+						}
+						break;
+					case "delete" :
+						synchronized (this) {
+							if (voc.containsKey(args[1])){
+								Set<String> defs = voc.get(args[1]);
+								defs.addAll(chunkDefs(args));
 								voc.put(args[1], defs);		
 							} else {
 								Set<String> defs = new HashSet<>();

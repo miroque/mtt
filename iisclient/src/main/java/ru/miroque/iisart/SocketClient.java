@@ -46,7 +46,7 @@ public class SocketClient {
 
 			// Since this is the client, we will initiate the talking.
 			// Send a string data and flush
-			out.println("What is going on Server?");
+			out.println("test");
 			out.flush();
 			// Receive the reply.
 			System.out.println(in.readLine());
@@ -73,6 +73,10 @@ public class SocketClient {
 	            out.println(input);
 	            out.flush();
 	            System.out.println("-----------\n");
+	            
+//	            if (in.ready()){
+	            	System.out.println(in.readLine());
+//	            }
 	        }
 
 	        scanner.close();
