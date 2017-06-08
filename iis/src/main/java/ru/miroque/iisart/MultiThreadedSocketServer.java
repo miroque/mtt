@@ -141,6 +141,7 @@ public class MultiThreadedSocketServer {
 					case "get" :
 						synchronized (this) {
 							if (voc.containsKey(args[1])){
+								System.out.println("--- sending: "+voc.get(args[1]));
 								out.println(voc.get(args[1]));
 								out.flush();		
 							} else {

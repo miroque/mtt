@@ -49,7 +49,7 @@ public class SocketClient {
 			out.println("test");
 			out.flush();
 			// Receive the reply.
-			System.out.println(in.readLine());
+//			System.out.println(in.readLine());
 
 //			String stopMark = "";
 //			while (!stopMark.equalsIgnoreCase("done")) {
@@ -69,14 +69,13 @@ public class SocketClient {
 	                break;
 	            }
 
-	            System.out.println("input : " + input);
+	            System.out.println("from input to server: " + input);
 	            out.println(input);
 	            out.flush();
-	            System.out.println("-----------\n");
 	            
-//	            if (in.ready()){
-	            	System.out.println(in.readLine());
-//	            }
+	            System.out.println("Server says: " + in.readLine());
+	            
+	            System.out.println("-----------\n");
 	        }
 
 	        scanner.close();
