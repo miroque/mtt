@@ -164,6 +164,10 @@ public class MultiThreadedSocketServer {
 							}
 						}
 						break;
+						default :
+							out.println("<there is no command>/<нет команд от клиента>");
+							out.flush();
+							break;
 					}
 
 					System.out.println(voc);
