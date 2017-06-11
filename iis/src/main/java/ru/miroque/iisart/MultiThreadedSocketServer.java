@@ -22,6 +22,7 @@ public class MultiThreadedSocketServer {
 	ServerSocket myServerSocket;
 	boolean ServerOn = true;
 	private volatile Map<String, Set<String>> voc;
+	private final int WORD = 1;
 
 	public MultiThreadedSocketServer() {
 		voc = new HashMap<>();
@@ -122,16 +123,16 @@ public class MultiThreadedSocketServer {
 					switch (args[0]) {
 					case "add" :
 						synchronized (this) {
-							if (voc.containsKey(args[1])){
-								Set<String> defs = voc.get(args[1]);
+							if (voc.containsKey(args[WORD])){
+								Set<String> defs = voc.get(args[WORD]);
 								defs.addAll(chunkDefs(args));
-								voc.put(args[1], defs);
+								voc.put(args[WORD], defs);
 								out.println("<definition of word successfully added>/<значения слова успешно добавлены>");
 								out.flush();
 							} else {
 								Set<String> defs = new HashSet<>();
 								defs.addAll(chunkDefs(args));
-								voc.put(args[1], defs);
+								voc.put(args[WORD], defs);
 								out.println("<definition of word successfully added>/<значения слова успешно добавлены>");
 								out.flush();
 							}
@@ -139,9 +140,8 @@ public class MultiThreadedSocketServer {
 						break;
 					case "get" :
 						synchronized (this) {
-							if (voc.containsKey(args[1])){
-								System.out.println("--- sending: "+voc.get(args[1]));
-								out.println(voc.get(args[1]));
+							if (voc.containsKey(args[WORD])){
+								out.println(voc.get(args[WORD]));
 								out.flush();		
 							} else {
 								String t = "<there is no such word in dictionary>/<слово отсутвует в словаре>";
@@ -152,21 +152,20 @@ public class MultiThreadedSocketServer {
 						break;
 					case "delete" :
 						synchronized (this) {
-							if (voc.containsKey(args[1])){
+							if (voc.containsKey(args[WORD])){
 								Set<String> defs = voc.get(args[1]);
-								defs.addAll(chunkDefs(args));
-								voc.put(args[1], defs);		
-							} else {
-								Set<String> defs = new HashSet<>();
-								defs.addAll(chunkDefs(args));
+								defs.removeAll(chunkDefs(args));
 								voc.put(args[1], defs);
+								out.println("<word's defenitions removed>/<значения слова успешно удалены>");
+								out.flush();
+							} else {
+								out.println("<there is no such word>/<такого слова не существует>");
+								out.flush();
 							}
 						}
 						break;
 					}
 
-					
-					
 					System.out.println(voc);
 
 					/*************************************************/
