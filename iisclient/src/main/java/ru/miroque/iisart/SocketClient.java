@@ -38,36 +38,19 @@ public class SocketClient {
 
 		BufferedReader in = null;
 		PrintWriter out = null;
-
+		BufferedReader br = null;
 		try {
 			// Create the streams to send and receive information
 			in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 			out = new PrintWriter(new OutputStreamWriter(s.getOutputStream()));
-
-			// Since this is the client, we will initiate the talking.
-			// Send a string data and flush
-			out.println("test");
-			out.flush();
-			// Receive the reply.
-//			System.out.println(in.readLine());
-
-//			String stopMark = "";
-//			while (!stopMark.equalsIgnoreCase("done")) {
-//				System.in.
-//			}
 			
 			// *************************
-			Scanner scanner = new Scanner(System.in);
 
+			br = new BufferedReader(new InputStreamReader(System.in));
 	        while (true) {
 
-	            System.out.print("Enter something : ");
-	            String input = scanner.nextLine();
-
-	            if ("done".equalsIgnoreCase(input)) {
-	                System.out.println("Exit!");
-	                break;
-	            }
+	            System.out.println("Enter something: ");
+	            String input = br.readLine();
 
 	            System.out.println("from input to server: " + input);
 	            out.println(input);
@@ -77,13 +60,7 @@ public class SocketClient {
 	            
 	            System.out.println("-----------\n");
 	        }
-
-	        scanner.close();
 			// *************************
-			
-			// Send the special string to tell server to quit.
-//			out.println("end");
-//			out.flush();
 		} catch (IOException ioe) {
 			System.out.println("Exception during communication. Server probably closed connection.");
 		} finally {
@@ -91,6 +68,7 @@ public class SocketClient {
 				// Close the input and output streams
 				out.close();
 				in.close();
+				br.close();
 				// Close the socket before quitting
 				s.close();
 			} catch (Exception e) {

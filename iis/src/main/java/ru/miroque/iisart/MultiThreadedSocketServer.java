@@ -117,7 +117,6 @@ public class MultiThreadedSocketServer {
 					
 					/*************************************************/
 					/*** main logic ***/
-//					add word transcript_01, transcript_02, transcript_03
 					String[] args = clientCommand.split(" ");
 					
 					switch (args[0]) {
@@ -189,11 +188,7 @@ public class MultiThreadedSocketServer {
 						m_bRunThread = false;
 						System.out.print("Stopping client thread for client : ");
 						ServerOn = false;
-					} else {
-						// Process it
-						out.println("Server Says : " + clientCommand);
-						out.flush();
-					}
+					} 
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
